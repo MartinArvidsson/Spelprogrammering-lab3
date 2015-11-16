@@ -73,6 +73,7 @@ namespace Roll_a_Ball
                 Exit();
 
             // TODO: Add your update logic here
+            ballsimulation.Updatepos(); //Updates the ball position
 
             base.Update(gameTime);
         }
@@ -86,7 +87,7 @@ namespace Roll_a_Ball
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            ballview.Draw(spriteBatch);
+            ballview.Draw(spriteBatch); //Draws the area the ball can bounce in, aswell as the position the ball starts on.
 
             base.Draw(gameTime);
         }
