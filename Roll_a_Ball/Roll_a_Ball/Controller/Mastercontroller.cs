@@ -73,7 +73,7 @@ namespace Roll_a_Ball
                 Exit();
 
             // TODO: Add your update logic here
-            ballsimulation.Updatepos(); //Updates the ball position
+            ballsimulation.Updatepos((float)gameTime.ElapsedGameTime.TotalSeconds); //Updates the ball position
 
             base.Update(gameTime);
         }

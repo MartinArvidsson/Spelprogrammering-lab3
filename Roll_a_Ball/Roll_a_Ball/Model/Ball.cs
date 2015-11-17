@@ -10,12 +10,12 @@ namespace Roll_a_Ball.Model
     class Ball
     {
         public Vector2 BallPos;
-        private Vector2 BallVelocity = new Vector2(0.002f,0.005f); //Speed of ball in Xaxis and Yaxis low values because otherwhise the ball acts like sonic
+        private Vector2 BallVelocity = new Vector2(0.5f,0.5f); //Speed of ball in Xaxis and Yaxis low values because otherwhise the ball acts like sonic
         private float Ballradius = 0.05f;
 
         public Ball()
         {
-            BallPos = new Vector2(0.19f, 0.75f); //Where the ball starts
+            BallPos = new Vector2(0.89f, 0.75f); //Where the ball starts
         }
         
         public float getballradius //Gets the radius

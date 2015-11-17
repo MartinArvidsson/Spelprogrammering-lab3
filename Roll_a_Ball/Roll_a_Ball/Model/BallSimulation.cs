@@ -13,15 +13,15 @@ namespace Roll_a_Ball.Model
             ball = new Ball(); //new ball object
         }
 
-        public void Updatepos()
+        public void Updatepos(float Elapsedtime)
         {
-            ball.BallPos += ball.getballVelocity;
+            ball.BallPos += ball.getballVelocity * Elapsedtime;
 
-            if(ball.BallPos.X + ball.getballradius > 1 || ball.BallPos.X - ball.getballradius < 0) //If ball bounces <---->
+            if(ball.BallPos.X + ball.getballradius > 1.0 || ball.BallPos.X - ball.getballradius < 0.0) //If ball bounces <---->
             {
                 ball.setballVelocityX();
             }
-            if(ball.BallPos.Y + ball.getballradius > 1 || ball.BallPos.Y - ball.getballradius < 0) //If ball bounces ^ v
+            if(ball.BallPos.Y + ball.getballradius > 1.0 || ball.BallPos.Y - ball.getballradius < 0.0) //If ball bounces ^ v
             {
                 ball.setballVelocityY();
             }
