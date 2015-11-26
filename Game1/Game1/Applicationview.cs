@@ -24,8 +24,11 @@ namespace Game1
         private Texture2D explosiontexture;
         private Texture2D shockwavetexture;
 
+        private Vector2 startpos = new Vector2(0.5f, 0.5f);
+        private float scale = 1f;
 
-        public Applicationview(ContentManager _content,Camera _camera,SpriteBatch _spritebatch,Vector2 startpos,float scale)
+
+        public Applicationview(ContentManager _content,Camera _camera,SpriteBatch _spritebatch)
         {
             content = _content;
             camera = _camera;
@@ -37,26 +40,25 @@ namespace Game1
             shockwavetexture = content.Load<Texture2D>("Shockwave");
 
             splittersystem = new SplitterSystem(splittertexture, spritebatch, camera, scale, startpos);
-            smokesystem = new Smokesystem(smoketexture, spritebatch, camera, scale, startpos);
+            smokesystem = new Smokesystem(smoketexture, spritebatch, camera, startpos);
 
             explosion = new Explosion(explosiontexture, spritebatch, camera, scale, startpos);
-            shockwave = new Shockwave(shockwavetexture, spritebatch, camera, scale, startpos);
+            shockwave = new Shockwave(shockwavetexture, spritebatch, camera, startpos);
         }
 
-        public void UpdateGame(GameTime gametime)
+        public void UpdateGame(float timeElapsed)
         {
-            float timeElapsed = (float)gametime.ElapsedGameTime.TotalSeconds;
             splittersystem.Update(timeElapsed);
             smokesystem.Update(timeElapsed);
         }
 
-        public void Draw(GameTime gametime)
+        public void Draw(float timeElapsed)
         {
             spritebatch.Begin();
             splittersystem.Draw();
             smokesystem.Draw();
-            explosion.Draw((float)gametime.ElapsedGameTime.TotalSeconds);
-            shockwave.Draw((float)gametime.ElapsedGameTime.TotalSeconds);
+            explosion.Draw(timeElapsed);
+            shockwave.Draw(timeElapsed);
             spritebatch.End();
         }
     }

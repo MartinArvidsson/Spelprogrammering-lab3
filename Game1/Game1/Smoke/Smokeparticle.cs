@@ -26,11 +26,10 @@ namespace Game1
         private float particlesize;
         private float rotation;
         private float fade;
-        private float scale;
         private Vector2 startpos = new Vector2();
 
 
-        public Smokeparticle(Texture2D spark, Random _random, float _lifetime, float _scale, Vector2 _startpos) //Creates the random direction and speed
+        public Smokeparticle(Texture2D spark, Random _random, float _lifetime,Vector2 _startpos) //Creates the random direction and speed
         {
             random = _random;
             timetolive = _lifetime;

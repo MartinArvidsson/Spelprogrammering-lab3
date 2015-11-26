@@ -14,25 +14,25 @@ namespace Game1
         private SpriteBatch spritebatch;
         private Texture2D shockwavetexture;
         private Vector2 currentPos;
-        float scale;
+
 
         private float fade = 1;
         private float shockwaveminsize = 0;
         private float shockwavemaxsize = 1;
         private float currentsize;
-
+        private float scale;
         private float maxtime = 1;
         private float timealive = 0;
         private float lifepercent;
 
 
-        public Shockwave(Texture2D _shockwavetexture, SpriteBatch _spritebatch, Camera _camera, float _scale, Vector2 _startpos)
+        public Shockwave(Texture2D _shockwavetexture, SpriteBatch _spritebatch, Camera _camera, Vector2 _startpos)
         {
             camera = _camera;
             spritebatch = _spritebatch;
             shockwavetexture = _shockwavetexture;
             currentPos = _startpos; 
-            scale = _scale;
+
         }
 
         public void Draw(float timeElapsed)

@@ -16,19 +16,18 @@ namespace Game1
         private Texture2D smoketexture;
         private SpriteBatch spritebatch;
         private Camera camera;
-        private float scale;
         private Vector2 startlocation = new Vector2();
 
-        public Smokesystem(Texture2D _smokeTexture, SpriteBatch _spritebatch,Camera _camera,float _scale,Vector2 _startlocation)
+        public Smokesystem(Texture2D _smokeTexture, SpriteBatch _spritebatch,Camera _camera,Vector2 _startlocation)
         {
             smoketexture = _smokeTexture;
             spritebatch = _spritebatch;
             camera = _camera;
-            scale = _scale;
+
             startlocation = _startlocation;
             if (particles.Count < numberofsmokes)
             {
-                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,scale,startlocation));
+                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,startlocation));
             }
         }
 
@@ -44,7 +43,7 @@ namespace Game1
         {
             if (particles.Count < numberofsmokes)
             {
-                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,scale, startlocation));
+                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,startlocation));
             }
         }
 
