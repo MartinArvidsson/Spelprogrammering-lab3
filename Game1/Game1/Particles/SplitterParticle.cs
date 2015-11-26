@@ -8,22 +8,50 @@ namespace Game1
 {
     class SplitterParticle
     {
+        private float particlesize = 0.02f;
+        private Vector2 randomdirection;
+        private float maxspeed = 1f;
+        private float scale;
+        private Random rand;
+        private Texture2D spark;
+        private Vector2 velocity;
+        private Vector2 acceleration = new Vector2(0.0f, 0.5f);
+        private Vector2 startpos;
+        private float lifetime;
+        private SpriteBatch spritebatch;
+        private Camera camera;
 
-        public Vector2 randomDirection;
-        public float maximumspeed = 0.5f;
-        public Vector2 startpos = new Vector2(0.5f, 0.5f); //Startpos.
-        public Vector2 velocity;
-        public Vector2 acceleration = new Vector2(0.0f, 0.7f);
 
-        public SplitterParticle(Texture2D spark,Random random)
+        public SplitterParticle(Texture2D _spark, Random _rand, SpriteBatch _spritebatch, Camera _camera, float _scale, Vector2 _startpos, float _lifetime)
         {
+            spark = _spark;
+            rand = _rand;
+            spritebatch = _spritebatch;
+            camera = _camera;
+            scale = _scale;
+            startpos = _startpos;
+            lifetime = _lifetime;
 
-            Vector2 randomDirection = new Vector2((float)random.NextDouble() - 0.5f, (float)random.NextDouble() - 0.5f);
+            randomdirection = new Vector2((float)rand.NextDouble() - 0.5f, (float)rand.NextDouble() - 0.7f);
             //normalize to get it spherical vector with length 1.0
-            randomDirection.Normalize();
-            //add random length between 0 to maxSpeed
-            randomDirection = randomDirection * ((float)random.NextDouble() * maximumspeed);
+            randomdirection.Normalize();
+            randomdirection = randomdirection * ((float)rand.NextDouble() * maxspeed);
+            velocity = randomdirection * scale;
         }
-        //Particlemovement etc..
+
+        public void UpdatePos(float elapsedtime)
+        {
+            velocity = elapsedtime * acceleration + velocity;
+            startpos = elapsedtime * velocity + startpos;
+        }
+
+        public void Draw()
+        {
+            float scale = camera.Scale(particlesize, spark.Width);
+
+            spritebatch.Draw(spark, camera.Converttovisualcoords(startpos, spark.Width, spark.Height, scale), null, Color.White, 0, randomdirection, scale, SpriteEffects.None, 0);
+
+        }
+
     }
 }

@@ -12,8 +12,6 @@ namespace Game1
         public Vector2 randomdirection;
         Color color = new Color();
         public float maxparticlespeed = 0.2f;
-
-        public Vector2 startingpos = new Vector2(0.5f, 0.95f);
         private Vector2 currentpos;
         public Vector2 acceleration = new Vector2(0.0f, -0.75f);
         public Vector2 velocity;
@@ -28,13 +26,15 @@ namespace Game1
         private float particlesize;
         private float rotation;
         private float fade;
+        private float scale;
+        private Vector2 startpos = new Vector2();
 
 
-
-        public Smokeparticle(Texture2D spark, Random _random,float lifetime) //Creates the random direction and speed
+        public Smokeparticle(Texture2D spark, Random _random, float _lifetime, float _scale, Vector2 _startpos) //Creates the random direction and speed
         {
             random = _random;
-            timetolive = lifetime;
+            timetolive = _lifetime;
+            startpos = _startpos;
             Spawnnewparticle();
             randrotation = 0.01f * ((float)random.NextDouble() - (float)random.NextDouble());
         }
@@ -43,7 +43,7 @@ namespace Game1
         {
             particlesize = particleminsize;
             timehaslived = 0;
-            currentpos = startingpos;
+            currentpos = startpos;
             rotation = 0;
             fade = 0.8f;
             color = new Color(fade, fade, fade, fade);
@@ -55,17 +55,17 @@ namespace Game1
  
         }
 
-        public bool islifeover()
-        {
-            if(timehaslived >= timetolive)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public bool islifeover()
+        //{
+        //    if(timehaslived >= timetolive)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
         public void Updateposition(float elapsedtime)
         {
@@ -84,10 +84,10 @@ namespace Game1
 
         public void Draw(SpriteBatch spritebatch, Camera camera, Texture2D smokecloud)
         {
-            float scale = camera.Scale(smokecloud,particlesize);
+            float scale = camera.Scale(particlesize,smokecloud.Width);
             //Coursepress
             //color fades to 0
-            spritebatch.Draw(smokecloud, camera.Converttovisualcoords(currentpos, smokecloud), null, color, rotation, randomdirection, scale, SpriteEffects.None, 0);
+            spritebatch.Draw(smokecloud, camera.Converttovisualcoords(currentpos, smokecloud.Width, smokecloud.Height, scale), null, color, rotation, randomdirection, scale, SpriteEffects.None, 0);
 
 
         }

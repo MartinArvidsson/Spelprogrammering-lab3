@@ -5,16 +5,16 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using Game1;
 
-namespace GameExplosion
+namespace Game1
 {
     class Explosion
     {
         Camera camera = new Camera();
-        private Vector2 startpos = new Vector2(0.5f, 0.5f);
         SpriteBatch spritebatch;
         private Texture2D explosion;
-
+        private Vector2 currentPos = new Vector2();
         private float timeElapsed;
         private float animationspeed = 1f;
         private int totalframes = 24;
@@ -22,25 +22,24 @@ namespace GameExplosion
         private int numframesY = 8;
         private int explosionheight;
         private int explosionwidth;
-
-        public Explosion(SpriteBatch _spritebatch,Texture2D _explosion,Camera _camera)
+        private float scale;
+        public Explosion(Texture2D _explosiontexture,SpriteBatch _spritebatch,Camera _camera,float _scale,Vector2 _startpos)
         {
             camera = _camera;
             spritebatch = _spritebatch;
-            explosion = _explosion;
+            explosion = _explosiontexture;
+            currentPos = _startpos;
+            scale = _scale;
 
             timeElapsed = 0;
-            explosionwidth = _explosion.Width / numframesX;
-            explosionheight = _explosion.Height / numframesY;
+            explosionwidth = _explosiontexture.Width / numframesX;
+            explosionheight = _explosiontexture.Height / numframesY;
         }
 
         public void Draw(float elapsedtime)
         {
             timeElapsed += elapsedtime;
-            if (timeElapsed >= animationspeed)
-            {
-                timeElapsed = 0;
-            }
+
             float percentAnimated = timeElapsed / animationspeed;
             int frame = (int)(percentAnimated * totalframes);
             int frameX = frame % numframesX;
@@ -49,9 +48,8 @@ namespace GameExplosion
             explosionheight = explosion.Height / numframesY;
 
             Rectangle rect = new Rectangle(explosionwidth * frameX, explosionheight * frameY, explosionwidth, explosionheight);
-            spritebatch.Begin();
-            spritebatch.Draw(explosion, camera.Converttovisualcoords(startpos, explosionheight, explosionwidth), rect, Color.White);
-            spritebatch.End();
+
+            spritebatch.Draw(explosion, camera.Converttovisualcoords(currentPos,explosionwidth,explosionheight,scale), rect, Color.White);
         }
     }
 }

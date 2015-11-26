@@ -11,6 +11,10 @@ namespace Game1
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Camera camera = new Camera();
+        private Applicationview applicationview;
+        private Vector2 Startpos = new Vector2(0.5f, 0.5f);
+        private float scale = 1f;
 
         public Applicationcontroller()
         {
@@ -43,7 +47,8 @@ namespace Game1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            applicationview = new Applicationview(Content, camera, spriteBatch, Startpos, scale);
+            camera.SetFieldSize(graphics.GraphicsDevice.Viewport);
             // TODO: use this.Content to load your game content here
         }
 
@@ -67,7 +72,7 @@ namespace Game1
                 Exit();
 
             // TODO: Add your update logic here
-
+            applicationview.UpdateGame(gameTime);
             base.Update(gameTime);
         }
 
@@ -79,7 +84,7 @@ namespace Game1
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            applicationview.Draw(gameTime);
 
             base.Draw(gameTime);
         }

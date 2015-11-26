@@ -10,21 +10,41 @@ namespace Game1
     class Smokesystem
     {
         private List<Smokeparticle> particles = new List<Smokeparticle>();
-        private int numberofsmokes = 300;
-        private int lifetimeofsmoke = 3;
+        private int numberofsmokes = 100;
+        private int lifetimeofsmoke = 1;
         private static Random rand = new Random();
-        private Texture2D smoke;
+        private Texture2D smoketexture;
+        private SpriteBatch spritebatch;
+        private Camera camera;
+        private float scale;
+        private Vector2 startlocation = new Vector2();
 
-        public Smokesystem(Texture2D smokeTexture)
+        public Smokesystem(Texture2D _smokeTexture, SpriteBatch _spritebatch,Camera _camera,float _scale,Vector2 _startlocation)
         {
-            smoke = smokeTexture;
+            smoketexture = _smokeTexture;
+            spritebatch = _spritebatch;
+            camera = _camera;
+            scale = _scale;
+            startlocation = _startlocation;
+            if (particles.Count < numberofsmokes)
+            {
+                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,scale,startlocation));
+            }
         }
 
-        public void addnewsmoke()
+        public void Draw()
         {
-            if(particles.Count < numberofsmokes)
+            foreach (Smokeparticle smoke in particles)
             {
-                particles.Add(new Smokeparticle(smoke,rand,lifetimeofsmoke));
+                smoke.Draw(spritebatch, camera, smoketexture);
+            }
+        }
+
+        private void addnewsmoke()
+        {
+            if (particles.Count < numberofsmokes)
+            {
+                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,scale, startlocation));
             }
         }
 
@@ -37,21 +57,12 @@ namespace Game1
             foreach(Smokeparticle particle in particles)
             {
                 particle.Updateposition(elapsedtime);
-                if(particle.islifeover())
-                {
-                    particle.Spawnnewparticle();
-                }
+                //if(particle.islifeover())
+                //{
+                //    particle.Spawnnewparticle();
+                //}
             }
         }
-        public void Draw(SpriteBatch spritebatch, Camera camera,Texture2D smokecloud)
-        {
-            spritebatch.Begin();
 
-            foreach (Smokeparticle smoke in particles) 
-            {
-                smoke.Draw(spritebatch, camera, smokecloud);
-            }
-            spritebatch.End();
-        }
     }
 }
