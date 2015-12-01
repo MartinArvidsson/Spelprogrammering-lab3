@@ -5,9 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using Game1;
 
-namespace Game1
+namespace View
 {
     class Explosion
     {
@@ -49,7 +48,7 @@ namespace Game1
 
             Rectangle rect = new Rectangle(explosionwidth * frameX, explosionheight * frameY, explosionwidth, explosionheight);
 
-            spritebatch.Draw(explosion, camera.Converttovisualcoords(currentPos,explosionwidth,explosionheight,scale), rect, Color.White);
+            spritebatch.Draw(explosion, camera.Converttovisualcoords(currentPos,explosionwidth,explosionheight,scale), rect, Color.White,0f,Vector2.Zero,scale,SpriteEffects.None,0.1f);
         }
     }
 }

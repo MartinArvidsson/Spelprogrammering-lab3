@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Controller;
 namespace Game1
 {
 #if WINDOWS || LINUX

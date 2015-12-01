@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Game1
+namespace View
 {
     class Smokeparticle
     {
@@ -16,8 +16,8 @@ namespace Game1
         public Vector2 acceleration = new Vector2(0.0f, -0.75f);
         public Vector2 velocity;
         Random random = new Random();
-        private float particleminsize = 0.09f;
-        private float particlemaxsize = 0.5f;
+        private float particleminsize = 0.03f;
+        private float particlemaxsize;
         private float timetolive;
         private float lifepercentage;
         private float timehaslived;
@@ -29,11 +29,12 @@ namespace Game1
         private Vector2 startpos = new Vector2();
 
 
-        public Smokeparticle(Texture2D spark, Random _random, float _lifetime,Vector2 _startpos) //Creates the random direction and speed
+        public Smokeparticle(Texture2D spark, Random _random, float _lifetime,Vector2 _startpos,float _scale) //Creates the random direction and speed
         {
             random = _random;
             timetolive = _lifetime;
             startpos = _startpos;
+            particlemaxsize = _scale;
             Spawnnewparticle();
             randrotation = 0.01f * ((float)random.NextDouble() - (float)random.NextDouble());
         }
@@ -86,7 +87,7 @@ namespace Game1
             float scale = camera.Scale(particlesize,smokecloud.Width);
             //Coursepress
             //color fades to 0
-            spritebatch.Draw(smokecloud, camera.Converttovisualcoords(currentpos, smokecloud.Width, smokecloud.Height, scale), null, color, rotation, randomdirection, scale, SpriteEffects.None, 0);
+            spritebatch.Draw(smokecloud, camera.Converttovisualcoords(currentpos, smokecloud.Width, smokecloud.Height, scale), null, color, rotation, randomdirection, scale, SpriteEffects.None, 0.4f);
 
 
         }

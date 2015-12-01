@@ -5,14 +5,14 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Game1
+namespace View
 {
     class SplitterSystem
     {
-        private float lifetime = 4f;
+        private float lifetime = 5f;
         private float timelived = 0;
         private List<SplitterParticle> particles = new List<SplitterParticle>();
-        private int maxparticles = 300;
+        private int maxparticles = 200;
         private Random rand = new Random();
         private SpriteBatch spritebatch;
         private Camera camera;

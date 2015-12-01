@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Game1
+namespace View
 {
     class Smokesystem
     {
@@ -17,17 +17,18 @@ namespace Game1
         private SpriteBatch spritebatch;
         private Camera camera;
         private Vector2 startlocation = new Vector2();
+        private float scale;
 
-        public Smokesystem(Texture2D _smokeTexture, SpriteBatch _spritebatch,Camera _camera,Vector2 _startlocation)
+        public Smokesystem(Texture2D _smokeTexture, SpriteBatch _spritebatch,Camera _camera,float _scale,Vector2 _startlocation)
         {
             smoketexture = _smokeTexture;
             spritebatch = _spritebatch;
             camera = _camera;
-
+            scale = _scale;
             startlocation = _startlocation;
             if (particles.Count < numberofsmokes)
             {
-                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,startlocation));
+                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,startlocation,scale));
             }
         }
 
@@ -43,7 +44,7 @@ namespace Game1
         {
             if (particles.Count < numberofsmokes)
             {
-                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,startlocation));
+                particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,startlocation,scale));
             }
         }
 

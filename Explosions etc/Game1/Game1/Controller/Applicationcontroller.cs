@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
-namespace Game1
+using View;
+namespace Controller
 {
     /// <summary>
     /// This is the main type for your game.
@@ -13,6 +13,10 @@ namespace Game1
         SpriteBatch spriteBatch;
         private Camera camera = new Camera();
         private Applicationview applicationview;
+        private Texture2D splittertexture;
+        private Texture2D smoketexture;
+        private Texture2D explosiontexture;
+        private Texture2D shockwavetexture;
 
         public Applicationcontroller()
         {
@@ -45,7 +49,7 @@ namespace Game1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            applicationview = new Applicationview(Content, camera, spriteBatch);
+            //applicationview = new Applicationview(Content, camera, spriteBatch);
             camera.SetFieldSize(graphics.GraphicsDevice.Viewport);
             // TODO: use this.Content to load your game content here
         }
@@ -66,11 +70,21 @@ namespace Game1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                applicationview = new Applicationview(Content, camera, spriteBatch);
+            }
 
             // TODO: Add your update logic here
-            applicationview.UpdateGame((float)gameTime.ElapsedGameTime.TotalSeconds);
+            if(applicationview != null)
+            {
+                applicationview.UpdateGame((float)gameTime.ElapsedGameTime.TotalSeconds);
+            }
             base.Update(gameTime);
         }
 
@@ -82,8 +96,10 @@ namespace Game1
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            applicationview.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
-
+            if (applicationview != null)
+            {
+                applicationview.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
+            }
             base.Draw(gameTime);
         }
     }

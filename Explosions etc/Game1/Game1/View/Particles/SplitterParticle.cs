@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-namespace Game1
+namespace View
 {
     class SplitterParticle
     {
@@ -36,7 +36,7 @@ namespace Game1
             //normalize to get it spherical vector with length 1.0
             randomdirection.Normalize();
             randomdirection = randomdirection * ((float)rand.NextDouble() * maxspeed);
-            velocity = randomdirection * scale;
+            velocity = randomdirection *scale;
         }
 
         public void UpdatePos(float elapsedtime)
@@ -49,7 +49,7 @@ namespace Game1
         {
             float scale = camera.Scale(particlesize, spark.Width);
 
-            spritebatch.Draw(spark, camera.Converttovisualcoords(startpos, spark.Width, spark.Height, scale), null, Color.White, 0, randomdirection, scale, SpriteEffects.None, 0);
+            spritebatch.Draw(spark, camera.Converttovisualcoords(startpos, spark.Width, spark.Height, scale), null, Color.White, 0, randomdirection, scale, SpriteEffects.None, 0.3f);
 
         }
 
