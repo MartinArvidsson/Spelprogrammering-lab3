@@ -69,7 +69,7 @@ namespace View
                 spritebatch.Draw(background, rect, Color.White);
                 Vector2 currentballpos = ball.getballpos;
                 float scale = camera.Scale(ball.getballradius * 2, balltexture.Width);
-                var ballvisualpos = camera.Converttovisualcoords(currentballpos, balltexture.Width, balltexture.Height, scale);
+                var ballvisualpos = camera.Converttovisualcoords(currentballpos,scale);
                 spritebatch.Draw(balltexture, ballvisualpos, null, Color.White, 0, ballcenter, scale, SpriteEffects.None, 0.4f);
             }
             spritebatch.End();

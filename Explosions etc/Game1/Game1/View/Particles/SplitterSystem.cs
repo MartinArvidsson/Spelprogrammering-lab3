@@ -12,7 +12,7 @@ namespace View
         private float lifetime = 5f;
         private float timelived = 0;
         private List<SplitterParticle> particles = new List<SplitterParticle>();
-        private int maxparticles = 200;
+        private int maxparticles = 100;
         private Random rand = new Random();
         private SpriteBatch spritebatch;
         private Camera camera;

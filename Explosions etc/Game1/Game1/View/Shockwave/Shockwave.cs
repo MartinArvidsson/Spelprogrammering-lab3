@@ -14,7 +14,7 @@ namespace View
         private SpriteBatch spritebatch;
         private Texture2D shockwavetexture;
         private Vector2 currentPos;
-
+        private Vector2 centertexture;
 
         private float fade = 1;
         private float shockwaveminsize = 0;
@@ -44,7 +44,8 @@ namespace View
             currentsize = shockwaveminsize + lifepercent * shockwavemaxsize;
             scale = camera.Scale(currentsize, shockwavetexture.Width);
             Color color = new Color(fade, fade, fade, fade);
-            spritebatch.Draw(shockwavetexture, camera.Converttovisualcoords(currentPos, shockwavetexture.Width, shockwavetexture.Height, scale), null, color,0,Vector2.Zero,scale,SpriteEffects.None,0.9f);
+            centertexture = new Vector2(shockwavetexture.Width / 2, shockwavetexture.Height / 2);
+            spritebatch.Draw(shockwavetexture, camera.Converttovisualcoords(currentPos, scale), null, color, 0, centertexture, scale, SpriteEffects.None, 0.9f);
         }
     }
 }

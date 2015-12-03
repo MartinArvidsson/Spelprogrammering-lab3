@@ -14,6 +14,7 @@ namespace View
         SpriteBatch spritebatch;
         private Texture2D explosion;
         private Vector2 currentPos = new Vector2();
+        private Vector2 centersprite;
         private float timeElapsed;
         private float animationspeed = 1f;
         private int totalframes = 24;
@@ -47,8 +48,8 @@ namespace View
             explosionheight = explosion.Height / numframesY;
 
             Rectangle rect = new Rectangle(explosionwidth * frameX, explosionheight * frameY, explosionwidth, explosionheight);
-
-            spritebatch.Draw(explosion, camera.Converttovisualcoords(currentPos,explosionwidth,explosionheight,scale), rect, Color.White,0f,Vector2.Zero,scale,SpriteEffects.None,0.6f);
+            centersprite = new Vector2(explosionwidth/2,explosionheight/2);
+            spritebatch.Draw(explosion, camera.Converttovisualcoords(currentPos, scale), rect, Color.White, 0, centersprite, scale, SpriteEffects.None, 0.6f);
         }
     }
 }

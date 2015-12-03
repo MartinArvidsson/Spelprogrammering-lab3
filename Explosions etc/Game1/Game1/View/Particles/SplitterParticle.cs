@@ -49,7 +49,7 @@ namespace View
         {
             float scale = camera.Scale(particlesize, spark.Width);
 
-            spritebatch.Draw(spark, camera.Converttovisualcoords(startpos, spark.Width, spark.Height, scale), null, Color.White, 0, randomdirection, scale, SpriteEffects.None, 0.7f);
+            spritebatch.Draw(spark, camera.Converttovisualcoords(startpos,scale), null, Color.White, 0, randomdirection, scale, SpriteEffects.None, 0.7f);
 
         }
 

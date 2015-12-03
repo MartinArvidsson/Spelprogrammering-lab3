@@ -83,14 +83,11 @@ namespace Controller
             if (lastmouseclick.LeftButton == ButtonState.Released && currentmouse.LeftButton == ButtonState.Pressed)
             {
                 startview.CreateExplosion(currentmouse.X, currentmouse.Y, spriteBatch);
-                //explosionview = new Explosionview(Content, camera, spriteBatch);
             }
             lastmouseclick = currentmouse;
-            // TODO: Add your update logic here
-            //if(explosionview != null)
-            //{
-            //    explosionview.UpdateGame((float)gameTime.ElapsedGameTime.TotalSeconds);
-            //}
+
+            ballsim.UpdateBall((float)gameTime.ElapsedGameTime.TotalSeconds);
+
             base.Update(gameTime);
         }
 

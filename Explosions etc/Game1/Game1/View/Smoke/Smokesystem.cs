@@ -26,6 +26,7 @@ namespace View
             camera = _camera;
             scale = _scale;
             startlocation = _startlocation;
+
             if (particles.Count < numberofsmokes)
             {
                 particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,startlocation,scale));
@@ -36,7 +37,18 @@ namespace View
         {
             foreach (Smokeparticle smoke in particles)
             {
-                smoke.Draw(spritebatch, camera, smoketexture);
+                smoke.Draw(spritebatch, camera);
+            }
+        }
+        public void Update(float elapsedtime)
+        {
+            if (elapsedtime >= (float)lifetimeofsmoke / (float)numberofsmokes)
+            {
+                addnewsmoke();
+            }
+            foreach (Smokeparticle particle in particles)
+            {
+                particle.Updateposition(elapsedtime);
             }
         }
 
@@ -47,22 +59,5 @@ namespace View
                 particles.Add(new Smokeparticle(smoketexture, rand, lifetimeofsmoke,startlocation,scale));
             }
         }
-
-        public void Update(float elapsedtime)
-        {
-            if(elapsedtime >= (float)lifetimeofsmoke /(float)numberofsmokes)
-            {
-                addnewsmoke();
-            }
-            foreach(Smokeparticle particle in particles)
-            {
-                particle.Updateposition(elapsedtime);
-                //if(particle.islifeover())
-                //{
-                //    particle.Spawnnewparticle();
-                //}
-            }
-        }
-
     }
 }
