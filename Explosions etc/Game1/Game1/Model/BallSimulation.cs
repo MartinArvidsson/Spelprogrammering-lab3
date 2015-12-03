@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Roll_a_Ball.Model
+namespace Model
 {
     class BallSimulation
     {
+        private List<Ball> balls = new List<Ball>();
+        private List<Ball> deadballs;
         public Ball ball;
+        int numberofballs = 15;
         public BallSimulation()
         {
-            ball = new Ball(); //new ball object
+            for (int i = 0; i < numberofballs; i++)
+            {
+                balls.Add(ball = new Ball()); //new ball object
+            }
         }
 
         public void Updatepos(float Elapsedtime)
@@ -26,6 +32,11 @@ namespace Roll_a_Ball.Model
                 ball.setballVelocityY();
             }
 
+        }
+
+        public List<Ball> getballs()
+        {
+            return balls;
         }
 
     }

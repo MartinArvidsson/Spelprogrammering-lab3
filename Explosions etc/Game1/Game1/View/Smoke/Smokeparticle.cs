@@ -87,7 +87,7 @@ namespace View
             float scale = camera.Scale(particlesize,smokecloud.Width);
             //Coursepress
             //color fades to 0
-            spritebatch.Draw(smokecloud, camera.Converttovisualcoords(currentpos, smokecloud.Width, smokecloud.Height, scale), null, color, rotation, randomdirection, scale, SpriteEffects.None, 0.4f);
+            spritebatch.Draw(smokecloud, camera.Converttovisualcoords(currentpos, smokecloud.Width, smokecloud.Height, scale), null, color, rotation, randomdirection, scale, SpriteEffects.None, 0.8f);
 
 
         }

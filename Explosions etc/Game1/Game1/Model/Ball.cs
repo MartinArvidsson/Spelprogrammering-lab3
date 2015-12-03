@@ -5,17 +5,26 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Roll_a_Ball.Model
+namespace Model
 {
     class Ball
     {
         public Vector2 BallPos;
-        private Vector2 BallVelocity = new Vector2(0.5f,0.5f); //Speed of ball in Xaxis and Yaxis low values because otherwhise the ball acts like sonic
+        private float maxspeed = 0.7f;
+        private float minspeed = 0.3f;
+        private Vector2 BallVelocity;
         private float Ballradius = 0.05f;
+        private Random rand = new Random();
+        private Vector2 randomdirection;
 
         public Ball()
         {
-            BallPos = new Vector2(0.89f, 0.75f); //Where the ball starts
+            BallPos = new Vector2(0.5f, 0.5f); //Where the ball starts
+            randomdirection = new Vector2((float)rand.NextDouble() - 0.5f, (float)rand.NextDouble() - 0.7f);
+            //normalize to get it spherical vector with length 1.0
+            randomdirection.Normalize();
+            randomdirection = randomdirection * ((float)rand.NextDouble() * maxspeed);
+            BallVelocity = randomdirection;
         }
         
         public float getballradius //Gets the radius

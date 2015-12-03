@@ -48,7 +48,7 @@ namespace View
 
             Rectangle rect = new Rectangle(explosionwidth * frameX, explosionheight * frameY, explosionwidth, explosionheight);
 
-            spritebatch.Draw(explosion, camera.Converttovisualcoords(currentPos,explosionwidth,explosionheight,scale), rect, Color.White,0f,Vector2.Zero,scale,SpriteEffects.None,0.1f);
+            spritebatch.Draw(explosion, camera.Converttovisualcoords(currentPos,explosionwidth,explosionheight,scale), rect, Color.White,0f,Vector2.Zero,scale,SpriteEffects.None,0.6f);
         }
     }
 }

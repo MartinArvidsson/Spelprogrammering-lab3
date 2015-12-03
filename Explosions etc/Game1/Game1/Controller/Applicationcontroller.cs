@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using View;
+using Model;
 namespace Controller
 {
     /// <summary>
@@ -13,14 +14,15 @@ namespace Controller
         SpriteBatch spriteBatch;
 
         private Camera camera = new Camera();
+        BallSimulation ballsim;
         private Startview startview;
         MouseState lastmouseclick;
 
         public Applicationcontroller()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 800;
-            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 600;
             graphics.IsFullScreen = false;
             IsMouseVisible = true;
             graphics.ApplyChanges();
@@ -49,8 +51,9 @@ namespace Controller
             camera.SetFieldSize(graphics.GraphicsDevice.Viewport);
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            ballsim = new BallSimulation();
             //explosionview = new Applicationview(Content, camera, spriteBatch);
-            startview = new Startview(Content, camera, spriteBatch);
+            startview = new Startview(Content, camera, spriteBatch,ballsim,graphics);
             
             
             // TODO: use this.Content to load your game content here

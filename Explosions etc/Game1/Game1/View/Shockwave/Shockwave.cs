@@ -44,7 +44,7 @@ namespace View
             currentsize = shockwaveminsize + lifepercent * shockwavemaxsize;
             scale = camera.Scale(currentsize, shockwavetexture.Width);
             Color color = new Color(fade, fade, fade, fade);
-            spritebatch.Draw(shockwavetexture, camera.Converttovisualcoords(currentPos, shockwavetexture.Width, shockwavetexture.Height, scale), null, color,0,Vector2.Zero,scale,SpriteEffects.None,0.2f);
+            spritebatch.Draw(shockwavetexture, camera.Converttovisualcoords(currentPos, shockwavetexture.Width, shockwavetexture.Height, scale), null, color,0,Vector2.Zero,scale,SpriteEffects.None,0.9f);
         }
     }
 }

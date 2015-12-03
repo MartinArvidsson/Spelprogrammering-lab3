@@ -10,10 +10,10 @@ namespace View
     class Camera
     {
         private int fieldsize;
-        int width;
-        int height;
-        float scale;
-        float boardersize = 24;
+        private int width;
+        private int height;
+        private float scale;
+        private int border = 20;
         public void SetFieldSize(Viewport board) //If width is bigger than height use it for scaling, otherwhise the other way around
         {
             width = board.Width;
@@ -27,6 +27,7 @@ namespace View
             {
                 fieldsize = height;
             }
+            fieldsize = fieldsize - (border * 2);
         }
 
         public Vector2 Converttovisualcoords(Vector2 coords, float width,float height,float scale) //gamecoords to visualcoords
@@ -39,8 +40,8 @@ namespace View
 
         public Vector2 ConvertMouseToLogical(Vector2 Mousecoords)
         {
-            float VisualX = (Mousecoords.X - boardersize) / fieldsize;
-            float VisualY = (Mousecoords.Y - boardersize) / fieldsize;
+            float VisualX = (Mousecoords.X/ fieldsize);// -(width / 2) * scale;
+            float VisualY = (Mousecoords.Y/ fieldsize);// -(height / 2) * scale;
 
             return new Vector2(VisualX, VisualY);
         }
@@ -54,6 +55,11 @@ namespace View
         public int ReturnFieldsize()
         {
             return fieldsize;
+        }
+
+        public int ReturnBorder()
+        {
+            return border;
         }
     }
 }

@@ -23,7 +23,8 @@ namespace View
         private Texture2D smoketexture;
         private Texture2D explosiontexture;
         private Texture2D shockwavetexture;
-
+        private float lifetimeofexplosion = 5f;
+        private float currentlife = 0;
         private Vector2 startpos;
         private float scale = 0.5f;
 
@@ -49,6 +50,7 @@ namespace View
 
         public void UpdateGame(float timeElapsed)
         {
+            currentlife += timeElapsed;
             splittersystem.Update(timeElapsed);
             smokesystem.Update(timeElapsed);
         }
@@ -60,6 +62,18 @@ namespace View
             explosion.Draw(timeElapsed);
             shockwave.Draw(timeElapsed);
 
+        }
+
+        public bool Getlifetimeofexplosion()
+        {
+            if(currentlife >= lifetimeofexplosion)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
