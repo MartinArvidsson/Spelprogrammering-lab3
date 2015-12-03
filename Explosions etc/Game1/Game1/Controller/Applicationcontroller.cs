@@ -11,12 +11,10 @@ namespace Controller
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
         private Camera camera = new Camera();
-        private Applicationview applicationview;
-        private Texture2D splittertexture;
-        private Texture2D smoketexture;
-        private Texture2D explosiontexture;
-        private Texture2D shockwavetexture;
+        private Startview startview;
+        MouseState lastmouseclick;
 
         public Applicationcontroller()
         {
@@ -24,6 +22,7 @@ namespace Controller
             graphics.PreferredBackBufferHeight = 800;
             graphics.PreferredBackBufferWidth = 800;
             graphics.IsFullScreen = false;
+            IsMouseVisible = true;
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
         }
@@ -47,10 +46,13 @@ namespace Controller
         /// </summary>
         protected override void LoadContent()
         {
+            camera.SetFieldSize(graphics.GraphicsDevice.Viewport);
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //applicationview = new Applicationview(Content, camera, spriteBatch);
-            camera.SetFieldSize(graphics.GraphicsDevice.Viewport);
+            //explosionview = new Applicationview(Content, camera, spriteBatch);
+            startview = new Startview(Content, camera, spriteBatch);
+            
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -74,17 +76,18 @@ namespace Controller
             {
                 Exit();
             }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            var currentmouse = Mouse.GetState();
+            if (lastmouseclick.LeftButton == ButtonState.Released && currentmouse.LeftButton == ButtonState.Pressed)
             {
-                applicationview = new Applicationview(Content, camera, spriteBatch);
+                startview.CreateExplosion(currentmouse.X, currentmouse.Y, spriteBatch);
+                //explosionview = new Explosionview(Content, camera, spriteBatch);
             }
-
+            lastmouseclick = currentmouse;
             // TODO: Add your update logic here
-            if(applicationview != null)
-            {
-                applicationview.UpdateGame((float)gameTime.ElapsedGameTime.TotalSeconds);
-            }
+            //if(explosionview != null)
+            //{
+            //    explosionview.UpdateGame((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //}
             base.Update(gameTime);
         }
 
@@ -96,10 +99,8 @@ namespace Controller
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            if (applicationview != null)
-            {
-                applicationview.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
-            }
+            startview.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
+
             base.Draw(gameTime);
         }
     }
