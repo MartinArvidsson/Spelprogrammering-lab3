@@ -8,10 +8,9 @@ namespace Model
     class BallSimulation
     {
         private List<Ball> balls = new List<Ball>();
-        private List<Ball> deadballs;
         public Ball ball;
         Random rand = new Random();
-        int numberofballs = 10;
+        int numberofballs = 70;
         public BallSimulation()
         {
             for (int i = 0; i < numberofballs; i++)
@@ -28,10 +27,6 @@ namespace Model
                 { 
                     hitwall(ball);
                     ball.updatecurrentpos(Elapsedtime);
-                }
-                else
-                {
-                    
                 }
             }
         }
@@ -51,8 +46,6 @@ namespace Model
 
         public void killballs(float Xcoord,float Ycoord,float Crosshair)
         {
-            deadballs = new List<Ball>();
-
             foreach(Ball ball in balls)
             {
                 if(ball.Getballstatus != true)
@@ -62,7 +55,6 @@ namespace Model
                         ball.getballpos.Y + ball.getballradius > Ycoord - Crosshair && //Ball Side
                         ball.getballpos.Y - ball.getballradius < Ycoord + Crosshair)   //Ball side
                     {
-                        deadballs.Add(ball);
                         ball.Killball = true;
                     }
                 }
@@ -73,11 +65,5 @@ namespace Model
         {
             return balls;
         }
-
-        public List<Ball> getdeadballs()
-        {
-            return deadballs;
-        }
-
     }
 }

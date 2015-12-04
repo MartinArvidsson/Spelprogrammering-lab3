@@ -30,13 +30,10 @@ namespace View
         private Texture2D deadball;
         private Vector2 ballcenter;
         private Rectangle rect;
-
         private int fieldsize;
         private int bordersize;
         private float crosshairsize = 0.3f;
-
         List<Explosionview> numberofexplosions = new List<Explosionview>();
-        //List<Smokesystem> numberofsmokes = new List<Smokesystem>();
 
         public Startview(ContentManager _content, Camera _camera, SpriteBatch _spritebatch,BallSimulation _ballsim,GraphicsDeviceManager _graphics)
         {
