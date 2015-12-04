@@ -16,7 +16,7 @@ namespace Model
         private float Ballradius = 0.05f;
         private Vector2 randomdirection;
         private Random rand;
-
+        private bool deadball;
         public Ball(Random _rand)
         {
             BallPos = new Vector2(0.5f, 0.5f); //Where the ball starts
@@ -26,6 +26,7 @@ namespace Model
             randomdirection.Normalize();
             randomdirection = randomdirection * ((float)rand.NextDouble() * maxspeed +minspeed);
             BallVelocity = randomdirection;
+            deadball = false;
         }
 
         public void updatecurrentpos(float elapsedtime)
@@ -48,7 +49,6 @@ namespace Model
                 return BallPos;
             }
         }
-
 
         //Makes velocity the opposite of what it was since it hit a wall and needs to turn, otherwhise it keeps going in same direction.
         public void setballVelocityX() //Sets a new velocity on X
@@ -73,5 +73,20 @@ namespace Model
             }
         }
 
+        public bool Killball
+        {
+            set
+            {
+                deadball = value;
+            }
+        }
+
+        public bool Getballstatus
+        {
+            get
+            {
+                return deadball;
+            }
+        }
     }
 }

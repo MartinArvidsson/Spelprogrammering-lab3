@@ -24,7 +24,7 @@ namespace Controller
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 600;
             graphics.IsFullScreen = false;
-            IsMouseVisible = true;
+            //IsMouseVisible = true;
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
         }
@@ -79,14 +79,21 @@ namespace Controller
             {
                 Exit();
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                ballsim = new BallSimulation();
+                //explosionview = new Applicationview(Content, camera, spriteBatch);
+                startview = new Startview(Content, camera, spriteBatch, ballsim, graphics);
+            }
             var currentmouse = Mouse.GetState();
             if (lastmouseclick.LeftButton == ButtonState.Released && currentmouse.LeftButton == ButtonState.Pressed)
             {
                 startview.CreateExplosion(currentmouse.X, currentmouse.Y, spriteBatch);
             }
             lastmouseclick = currentmouse;
-
             ballsim.UpdateBall((float)gameTime.ElapsedGameTime.TotalSeconds);
+
 
             base.Update(gameTime);
         }

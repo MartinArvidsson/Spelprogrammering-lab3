@@ -48,7 +48,20 @@ namespace View
             }
             foreach (SplitterParticle particle in particles)
             {
+                Hitwall(particle);
                 particle.UpdatePos(timeElapsed);
+            }
+        }
+
+        public void Hitwall(SplitterParticle particle)
+        {
+            if (particle.startpos.X + particle.particleradius > 1.0 || particle.startpos.X + particle.particleradius < 0.0) //If ball bounces <---->
+            {
+                particle.setparticleVelocityX();
+            }
+            if (particle.startpos.Y + particle.particleradius > 1.0 || particle.startpos.Y + particle.particleradius < 0.0) //If ball bounces ^ v
+            {
+                particle.setparticleVelocityY();
             }
         }
     }

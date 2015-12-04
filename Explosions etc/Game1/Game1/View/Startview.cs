@@ -12,23 +12,28 @@ namespace View
 {
     class Startview
     {
+        
         private ContentManager content;
         private Camera camera;
         private SpriteBatch spritebatch;
         private BallSimulation ballsim;
-        private Rectangle rect;
         private GraphicsDeviceManager graphics;
-        private Texture2D balltexture;
 
+        private SoundEffect firesound;
+        private Texture2D balltexture;
         private Texture2D splittertexture;
         private Texture2D smoketexture;
         private Texture2D explosiontexture;
         private Texture2D shockwavetexture;
         private Texture2D background;
+        private Texture2D crosshair;
+        private Texture2D deadball;
         private Vector2 ballcenter;
+        private Rectangle rect;
+
         private int fieldsize;
         private int bordersize;
-        private SoundEffect firesound;
+        private float crosshairsize = 0.3f;
 
         List<Explosionview> numberofexplosions = new List<Explosionview>();
         //List<Smokesystem> numberofsmokes = new List<Smokesystem>();
@@ -51,6 +56,8 @@ namespace View
             explosiontexture = content.Load<Texture2D>("explosion");
             shockwavetexture = content.Load<Texture2D>("Shockwave");
             balltexture = content.Load<Texture2D>("BALL");
+            deadball = content.Load<Texture2D>("Deadball");
+            crosshair = content.Load<Texture2D>("Crosshair");
             firesound = content.Load<SoundEffect>("fire");
             ballcenter = new Vector2(balltexture.Width / 2, balltexture.Height / 2);
 
@@ -61,18 +68,39 @@ namespace View
         public void Draw(float elapsedtime)
         {
             spritebatch.Begin(SpriteSortMode.FrontToBack);
-            DrawExplosions(elapsedtime);
-            
 
-            foreach(Ball ball in ballsim.getballs())
+            DrawCrosshair();
+            DrawExplosions(elapsedtime);
+            DrawBalls();
+
+            spritebatch.End();
+        }
+        public void DrawCrosshair()
+        {
+            float crosshairscaled = camera.Scale(crosshairsize, crosshair.Width);
+            var mousepos = Mouse.GetState();
+            Vector2 _mousepos = new Vector2(mousepos.X, mousepos.Y);
+            Vector2 pos = camera.Centercursortexture(crosshair,_mousepos, crosshairscaled);
+            spritebatch.Draw(crosshair, pos, null, Color.White, 0, Vector2.Zero, crosshairscaled, SpriteEffects.None, 1f);
+        }
+
+        public void DrawBalls()
+        {
+            foreach (Ball ball in ballsim.getballs())
             {
                 spritebatch.Draw(background, rect, Color.White);
                 Vector2 currentballpos = ball.getballpos;
                 float scale = camera.Scale(ball.getballradius * 2, balltexture.Width);
-                var ballvisualpos = camera.Converttovisualcoords(currentballpos,scale);
-                spritebatch.Draw(balltexture, ballvisualpos, null, Color.White, 0, ballcenter, scale, SpriteEffects.None, 0.4f);
-            }
-            spritebatch.End();
+                var ballvisualpos = camera.Converttovisualcoords(currentballpos, scale);
+                if(ball.Getballstatus == false)
+                {
+                    spritebatch.Draw(balltexture, ballvisualpos, null, Color.White, 0, ballcenter, scale, SpriteEffects.None, 0.4f);
+                }
+                else
+                {
+                    spritebatch.Draw(deadball, ballvisualpos, null, Color.White, 0, ballcenter, scale, SpriteEffects.None, 0.4f);
+                }
+           }
         }
 
         public void DrawExplosions(float elapsedtime)
@@ -99,6 +127,7 @@ namespace View
                 numberofexplosions.Add(new Explosionview(camera, spritebatch, explosionpos, splittertexture, smoketexture, explosiontexture, shockwavetexture));
                 firesound.Play(0.1f, 0, 0);
             }
+            ballsim.killballs(explosionpos.X, explosionpos.Y, (crosshairsize/2));
         }
     }
 }

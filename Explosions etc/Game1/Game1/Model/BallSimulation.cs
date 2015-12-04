@@ -8,7 +8,7 @@ namespace Model
     class BallSimulation
     {
         private List<Ball> balls = new List<Ball>();
-        //private List<Ball> deadballs;
+        private List<Ball> deadballs;
         public Ball ball;
         Random rand = new Random();
         int numberofballs = 10;
@@ -24,8 +24,15 @@ namespace Model
         {
             foreach(Ball ball in balls)
             {
-                hitwall(ball);
-                ball.updatecurrentpos(Elapsedtime);
+                if(ball.Getballstatus == false)
+                { 
+                    hitwall(ball);
+                    ball.updatecurrentpos(Elapsedtime);
+                }
+                else
+                {
+                    
+                }
             }
         }
         public void hitwall(Ball ball)
@@ -42,9 +49,34 @@ namespace Model
 
         }
 
+        public void killballs(float Xcoord,float Ycoord,float Crosshair)
+        {
+            deadballs = new List<Ball>();
+
+            foreach(Ball ball in balls)
+            {
+                if(ball.Getballstatus != true)
+                {
+                    if (ball.getballpos.X + ball.getballradius > Xcoord - Crosshair && //Ball upper side
+                        ball.getballpos.X - ball.getballradius < Xcoord + Crosshair && //Ball bottom side
+                        ball.getballpos.Y + ball.getballradius > Ycoord - Crosshair && //Ball Side
+                        ball.getballpos.Y - ball.getballradius < Ycoord + Crosshair)   //Ball side
+                    {
+                        deadballs.Add(ball);
+                        ball.Killball = true;
+                    }
+                }
+            }
+        }
+
         public List<Ball> getballs()
         {
             return balls;
+        }
+
+        public List<Ball> getdeadballs()
+        {
+            return deadballs;
         }
 
     }

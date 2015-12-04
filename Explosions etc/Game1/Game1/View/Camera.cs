@@ -46,6 +46,12 @@ namespace View
             return new Vector2(LogicX, LogicY);
         }
 
+        public Vector2 Centercursortexture(Texture2D crosshair,Vector2 mousepos,float scale)
+        {
+            Vector2 crosshairpos = new Vector2(mousepos.X - crosshair.Width / 2 * scale, mousepos.Y - crosshair.Width / 2 * scale);
+            return crosshairpos;
+        }
+
         public float Scale(float size,float width) //scales the particle
         {
             return scale = fieldsize * size / width;
